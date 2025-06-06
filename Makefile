@@ -59,14 +59,14 @@ ifeq ($(findstring --network sepolia,$(ARGS)),--network sepolia)
 endif
 
 deploy:
-	@forge script script/DeployMerkleAirdrop.s.sol:DeployMerkleAirdrop $(NETWORK_ARGS)
+	@forge script script/DeployIdrisAirdrop.s.sol:DeployIdrisAirdrop $(NETWORK_ARGS)
 
 # As of writing, the Alchemy zkSync RPC URL is not working correctly 
 deploy-zk:
-	forge create src/MerkleAirdrop.sol:MerkleAirdrop --rpc-url http://127.0.0.1:8011 --private-key ${DEFAULT_ZKSYNC_LOCAL_KEY} --constructor-args ${ROOT} $(shell forge create src/BagelToken.sol:BagelToken --rpc-url http://127.0.0.1:8011 --private-key ${DEFAULT_ZKSYNC_LOCAL_KEY} --legacy --zksync | grep "Deployed to:" | awk '{print $$3}') --legacy --zksync
+	forge create src/IdrisAirdrop.sol:IdrisAirdrop --rpc-url http://127.0.0.1:8011 --private-key ${DEFAULT_ZKSYNC_LOCAL_KEY} --constructor-args ${ROOT} $(shell forge create src/BagelToken.sol:BagelToken --rpc-url http://127.0.0.1:8011 --private-key ${DEFAULT_ZKSYNC_LOCAL_KEY} --legacy --zksync | grep "Deployed to:" | awk '{print $$3}') --legacy --zksync
 
 deploy-zk-sepolia:
-	forge create src/MerkleAirdrop.sol:MerkleAirdrop --rpc-url ${ZKSYNC_SEPOLIA_RPC_URL} --constructor-args ${ROOT} $(shell forge create src/BagelToken.sol:BagelToken --rpc-url ${ZKSYNC_SEPOLIA_RPC_URL} --account default --legacy --zksync | grep "Deployed to:" | awk '{print $$3}') --account default --legacy --zksync
+	forge create src/IdrisAirdrop.sol:IdrisAirdrop --rpc-url ${ZKSYNC_SEPOLIA_RPC_URL} --constructor-args ${ROOT} $(shell forge create src/BagelToken.sol:BagelToken --rpc-url ${ZKSYNC_SEPOLIA_RPC_URL} --account default --legacy --zksync | grep "Deployed to:" | awk '{print $$3}') --account default --legacy --zksync
 
 # Generate Merkle Tree input file
 generate :; forge script script/GenerateInput.s.sol:GenerateInput
